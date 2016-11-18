@@ -1,0 +1,173 @@
+# ****************************************************************
+# objectDump Configuration File
+# ****************************************************************
+
+
+#OPEN usb|pci LinkNumber NodeNumber BaseAddress
+#Il parametro open consente di specificare le informazioni necessarie per aprire il digitizer. Se una di
+#queste informazioni non è necessaria (ad esempio il BaseAddress), occorre settarla con il parametro 0.
+#Esempio: 
+OPEN PCI 0 0 0
+
+
+#MAX_NUM_EVENTS_BLT maximum_number_of_events
+#Il parametro MAX_NUM_EVENTS_BLT imposta il numero di eventi massimo che può essere
+#trasferito in un block transfer.
+#Esempio: 
+MAX_NUM_EVENTS_BLT 1
+
+
+#RECORD_LENGTH number_of_samples
+#Il parametro RECORD_LENGTH indica il numero di campioni da acquisire ad ogni trigger.
+#Esempio: 
+RECORD_LENGTH 200
+
+
+#POST_TRIGGER value
+#Il parametro POST_TRIGGER indica la dimensione del post-trigger in percentuale della grandezza di
+#record_length. Nel caso dei digitizer x742, c'è un ulteriore delay di 35 ns.
+#Esempio: 
+POST_TRIGGER 10
+
+
+#TEST_PATTERN yes|no
+#Il parametro TEST_PATTERN permette di sostituire alla ADC un'onda triangolare di test con un range
+#da 0 al massimo acquisibile.
+#Esempio: 
+#TEST_PATTERN no
+
+
+#FPIO_LEVEL ttl|nim
+#Il parametro FPIO_LEVEL indica il tipo dell'input/output dei front panel LEMO connectors.
+#Esempio: 
+#FPIO_LEVEL ttl
+
+
+#DECIMATION_FACTOR number_of_samples
+#Il parametro DECIMATION_FACTOR, significativo solo per i digitizers della famiglia X740, specifica
+#il decimation factor dell'acquisizione.
+#Esempio: 
+#DECIMATION_FACTOR 1
+
+
+#ENABLED_FAST_TRIGGER_DIGITIZING yes|no
+#Il parametro ENABLED_FAST_TRIGGER_DIGITIZING, significativo sono per i digitizers della
+#famiglia x742, indica se digitalizzare e rendere disponibili nel readout i segnali acquisiti dai canali di fast
+#triggering.
+#Esempio: 
+#ENABLED_FAST_TRIGGER_DIGITIZING yes
+
+
+#FAST_TRIGGER acquisition_only|disabled
+#Il parametro FAST_TRIGGER permette di usare l'input proveniente dai canali di fast triggering come
+#segnale di trigger per, rispettivamente, i gruppi 0-1 e 2-3.
+#Esempio: 
+#FAST_TRIGGER acquisition_only
+
+
+#EXTERNAL_TRIGGER acquisition_only|acquisition_and_trgout|disabled
+#Il parametro EXTERNAL_TRIGGER permette di impostare il modo con cui usare il segnale di trigger.
+#Esempio: 
+EXTERNAL_TRIGGER disabled
+
+
+#ENABLE_DES_MODE yes|no
+#Il parametro ENABLE_DES_MODE permette di abilitare la Dual Edge Sampling (DES) mode per i
+#digitizers delle serie 731 e 751. Quando la DES mode è attiva, solo metà dei canali è abilitata (pari
+#per la serie 731, dispari per la serie 751).
+#Esempio: 
+ENABLE_DES_MODE yes
+
+
+#GNUPLOT_PATH “gnuplotcommand”|”gnuplotprogrampath”
+#Il parametro GNUPLOT_PATH indica il comando che objectDump utilizzerà per lanciare gnuplot.
+#Quindi, il parametro deve essere impostato o con il comando utilizzato nella shell per lanciare gnuplot
+#o con il path assoluto del programma gnuplot.
+#Esempio: 
+GNUPLOT_PATH gnuplot
+
+
+#DRS4_FREQUENCY 0|1|2
+#Il parametro DRS4_FREQUENCY, significativo solo i digitizers della famiglia x742, permette di
+#impostare la frequenza di campionamento.
+#0---> 5 Ghz (valore di default)1---> 2.5 Ghz
+#2---> 1 Ghz.
+#Esempio: 
+#DRS4_FREQUENCY 2
+
+
+#GROUP_ENABLE_MASK groupenablemask
+#Il parametro GROUP_ENABLE_MASK consente di impostare quali gruppi di canali saranno presenti
+#nell'acquisizione. Questo parametro ha senso per le famiglie x740, x742 e x743.
+#Esempio: 
+#GROUP_ENABLE_MASK 0x3
+
+
+#CHANNEL_ENABLE_MASK channelenablemask
+#Il parametro CHANNEL_ENABLE_MASK consente di impostare quali canali saranno presenti
+#nell'acquisizione. Questo parametro non ha senso per le famiglie x740, x742 e x743.
+#Esempio: 
+CHANNEL_ENABLE_MASK 0x2
+
+
+#ALL DC_OFFSET dc_offset
+#Il parametro ALL DC_OFFSET consente di eseguire lo shift dell'input di tutti i canali disponibili della
+#dimensione indicata in dc_offset. Per avere maggiori informazioni sul significato di tale dimensione,
+#consultare la documentazione tecnica del digitizer.
+#Esempio: 
+#ALL DC_OFFSET 0x3fff
+
+
+#ALL TRIGGER_THRESHOLD triggerthreshold
+#Il parametro ALL TRIGGER_THRESHOLD consente di impostare su tutti i canali disponibili la soglia
+#di self triggering indicata da triggerthreshold.
+#Esempio: 
+#ALL TRIGGER_ THRESHOLD 0x0100
+
+
+#SELF_TRIGGER_ENABLE_MASK selftriggerenable acquisition_only|acquisition_and_trgout|disabled
+#Il parametro TRIGGER_ENABLE_MASK consente di impostare quali canali generano un segnale di
+#trigger nel caso in cui il loro input superi la TRIGGER_THRESHOLD impostata.
+#Esempio (nel caso in cui il digitizer abbia 4 canali): 
+SELF_TRIGGER_ENABLE_MASK 0x2 acquisition_only
+
+
+#CH channelnumber TRIGGER_THRESHOLD triggerthreshold
+#Esempio: Imposta a 0x100 la soglia di auto triggering del canale 2.
+CH 1 TRIGGER_THRESHOLD 0x384
+#CH 1 TRIGGER_THRESHOLD 0x7fff
+#CH 2 TRIGGER_THRESHOLD 0x7fff
+#CH 3 TRIGGER_THRESHOLD 0x7fff
+
+#GR groupnumber TRIGGER_THRESHOLD triggerthreshold
+#Esempio: Imposta a 0x100 la soglia di auto triggering del gruppo 2.
+#GR 2 TRIGGER_THRESHOLD 0x100
+
+
+#FAST fastnumber TRIGGER_THRESHOLD triggerthreshold
+#Esempio: Imposta a 0x100 la soglia di auto triggering del canale di fast triggering 1. L'impostazione ha senso
+#solo per i digitizers della famiglia x742.
+#FAST 1 TRIGGER_THRESHOLD 0x100
+#FAST 0 TRIGGER_THRESHOLD 0x200
+
+
+#CH channelnumber DC_OFFSET dcoffset
+#Esempio: Imposta a 0x3fff il dc offset del canale 2.
+CH 1 DC_OFFSET 0x7fff
+#CH 1 DC_OFFSET 0xffff
+#CH 2 DC_OFFSET 0xffff
+#CH 3 DC_OFFSET 0xffff
+
+write register 0x8000 0x1052
+write register 0x8114 0x0
+write register 0x8020 0x3
+
+#GR groupnumber DC_OFFSET dcoffset
+#Esempio: Imposta a 0x3fff il dc offset del gruppo 2.
+#GR 2 DC_OFFSET 0x3fff
+
+
+#FAST groupnumber DC_OFFSET dcoffset
+#Esempio: Imposta a 0x3fff il dc offset del canale di fast triggering 1. L'impostazione ha senso solo per i digitizers
+#della famiglia x742.
+#FAST 1 DC_OFFSET 0x3fff

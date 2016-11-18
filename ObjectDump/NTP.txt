@@ -1,0 +1,9 @@
+inizio: 0.160067
+
+poi, coi printf: 0.433382
+
+poi, con fwrite: 0.413912
+
+in locale, coi printf: 0.238428
+
+col lo switch, coi printf: 0.476164

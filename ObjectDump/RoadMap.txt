@@ -1,0 +1,10 @@
+############################################################################################
+############################################################################################
+############################################################################################
+22-06-2016
+
+Inserire la questione del detaching dei threads.
+Inserire la questione del RawDataDel con il FreeReadoutBuffer.
+Controllare bene l'utilizzo della memoria.
+Usare l'Ntp server....
+Aggiungi i semafori nei singleton.

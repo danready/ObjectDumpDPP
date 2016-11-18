@@ -1,0 +1,3 @@
+12-07-2016
+DB Aggiornamento del manuale del programma.
+DB Aggiunta delle guardie nei file .h e inizio aggiunta mutex nei singleton.
