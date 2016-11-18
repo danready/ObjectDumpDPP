@@ -47,8 +47,10 @@ Funzioni di Setup usate:
 	ret |= CAEN_DGTZ_MallocZLEEvents(handle, Events, &AllocatedSize); 
 
 	/* Allocate memory for the waveforms */
-	ret |= CAEN_DGTZ_MallocZLEWaveforms(handle, &Waveforms, &AllocatedSize); 
-	
+	ret |= CAEN_DGTZ_MallocZLEWaveforms(handle, &Waveforms, &AllocatedSize); 		
+
+Funzioni Dopo l'acquisizione:
+
 	CAEN_DGTZ_SendSWtrigger(handle);
 	
 	ret = CAEN_DGTZ_ReadData(handle, CAEN_DGTZ_SLAVE_TERMINATED_READOUT_MBLT, buffer, &BufferSize);
@@ -72,7 +74,4 @@ Funzioni di Setup usate:
 	CAEN_DGTZ_FreeZLEEvents(handle,Events);
 	CAEN_DGTZ_FreeZLEWaveforms(handle,Waveforms);
 	/* close digitizer */
-	CAEN_DGTZ_CloseDigitizer(handle);	
-
-Funzioni Dopo l'acquisizione:
-
+	CAEN_DGTZ_CloseDigitizer(handle);

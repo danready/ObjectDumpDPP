@@ -298,7 +298,7 @@ DigitizerFlowControl::DigitizerFlowControlStart ()
 				application_setup_conf_file_path))
 				{
 					//Se non ci sono errori nell'attributo OPEN del file di configurazione, il digitizer viene impostato.
-					output_module->Output("Digitizer setupping...\n");
+					output_module->Output("Digitizer setup done\n");
 
 					logfile->LogFileMessageOn();
 
@@ -809,33 +809,33 @@ bool DigitizerFlowControl::reg_matches (const char *str, const char *pattern)
 void
 DigitizerFlowControl::Help ()
 {
-  printf ("Available command list:\n");
-  printf ("init: open the digitizer\n");
-  printf ("setup: setup the digitizer\n");
-  printf ("start: start the data acquisition\n");
-  printf ("stop: stop the data acquisition\n");
-  printf ("prestart: start the preprocessing thread\n");
-  printf ("prestop: stop the preprocessing thread\n");
-  printf ("vistart [channelnumber]: start the visualization thread\n");
-  printf ("vistop: stop the visualization thread\n");
-  printf ("rawstart [num_events]: start the raw data writing thread saving at most the events indicated by num_events\n");
-  printf ("rawstop: stop the raw data writing thread\n");
-  printf ("close: close the digitizer\n");
-  printf ("send: send a software trigger\n");
-  printf ("help\n");
-  printf ("check: check the correctness of the configuration file\n");
-  printf ("chkconf: print the content of the configuration file\n");
-  printf ("write register 0x[register] 0x[data]\n");
-  printf ("read register 0x[register]\n");
-  printf ("-f [conf file path]: change the configuration file path\n");
-  printf ("-d [data file path]: change the data file path\n");
-  printf ("-l [log file path]: change the log file path\n");
-  printf ("print: print the internal configuration object used to configure the digitizer\n");
-  printf ("print files: print the path of the configuration file, of the data file and of the log file\n");
-  printf ("status: print the status of the threads acquisition, preprocessing, raw data and visualization\n");
-  printf ("more: display the content of the logfile\n");
-  printf ("exit: quit program\n");
-  printf ("quit: quit program\n");
+  printf ("Available command list:\n\n");
+  printf ("init: open the digitizer\n\n");
+  printf ("setup: setup the digitizer\n\n");
+  printf ("start: start the data acquisition\n\n");
+  printf ("stop: stop the data acquisition\n\n");
+  printf ("prestart: start the preprocessing thread\n\n");
+  printf ("prestop: stop the preprocessing thread\n\n");
+  printf ("vistart [channelnumber]: start the visualization thread\n\n");
+  printf ("vistop: stop the visualization thread\n\n");
+  printf ("rawstart [num_events]: start the raw data writing thread saving at most the events indicated by num_events\n\n");
+  printf ("rawstop: stop the raw data writing thread\n\n");
+  printf ("close: close the digitizer\n\n");
+  printf ("send: send a software trigger\n\n");
+  printf ("help\n\n");
+  printf ("check: check the correctness of the configuration file\n\n");
+  printf ("chkconf: print the content of the configuration file\n\n");
+  printf ("write register 0x[register] 0x[data]\n\n");
+  printf ("read register 0x[register]\n\n");
+  printf ("-f [conf file path]: change the configuration file path\n\n");
+  printf ("-d [data file path]: change the data file path\n\n");
+  printf ("-l [log file path]: change the log file path\n\n");
+  printf ("print: print the internal configuration object used to configure the digitizer\n\n");
+  printf ("print files: print the path of the configuration file, of the data file and of the log file\n\n");
+  printf ("status: print the status of the threads acquisition, preprocessing, raw data and visualization\n\n");
+  printf ("more: display the content of the logfile\n\n");
+  printf ("exit: quit program\n\n");
+  printf ("quit: quit program\n\n");
 }
 
 //Funzione per stampare il significato dei comandi inviati via tcp.

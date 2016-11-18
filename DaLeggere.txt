@@ -1,0 +1,163 @@
+1. Per avere la versione pubblicata online del nostro software puoi usare il comando:
+git clone https://github.com/danready/ObjectDump
+
+2. Nel file FlussoProgrammaCAEN.txt ho trascritto le funzioni che usa il programmino della
+   CAEN.
+
+3. Per inserirle le funzioni ZLE nel nostro programma ho modificato la funzione
+
+void DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
+
+del file DigitizerStateMachine.cpp nella cartella SourceCode: li' avviene il setup del programma.
+
+Bisogna fare attenzione che l'handle del digitizer non e' solo "handle" ma e' "digitizer.handle".
+
+Quindi,
+
+CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8008, 0x100));
+
+compila,
+
+CAEN_DGTZ_WriteRegister(handle, 0x8008, 0x100));
+
+no.
+
+4. 
+I target principali del makefile sono:
+"make" per compilare il programma.
+"make remove" per cancellare il programma.
+Se modifichi il file DefineGeneral.h devi fare "make remove" e poi "make"
+
+5.
+Di default, i dati raw vengono salvati in data.txt e data.txtsz (la dimensione) e, ogni volta che apri il programma, il file non viene
+cancellato ma aperto in modalita' append quindi occorre cancellarlo o modificare il path dove salvare i dati.
+A proposito del path: esso e' espresso come ./RawData/data.txt , quindi per modificarlo bisogna digitare -d ./RawData/data.txt e non solo
+-d data.txt . Col comando "print files" puoi controllare il path effettivamente utilizzato.
+
+6. 
+Il comando rawstart puo' essere seguito dal numero di burst di eventi massimo da scaricare. Con status puoi controllare il numero di burst scaricati.
+Sottolineo che il numero dopo rawstart, il numero stampato dal comando status "Numbers of events already written: ..." e il numero di righe presenti
+nel file data.txtsz sono il numero di burst salvati, non il numero di eventi: ogni burst potrebbe contenere al piu' MAX_NUM_EVENTS_BLT eventi triggerati!
+C'e' un po' di confusione coi nomi: cio' e' dovuto al fatto che ho aggiunto la possibilita' di specificare un numero dopo rawstart su consiglio di Michela
+la quale presupponeva di salvare sempre un evento alla volta (quindi MAX_NUM_EVENTS_BLT 1).
+
+7.
+Sottolineo l'importanza del comando status per avere il quadro della situazione, come il numero di eventi scaricati.
+
+8.
+La tipica sequenza di utilizzo del programma e':
+
+a. Eventuale cancellazione dei file data.txt e data.txtsz in RawData
+
+b. Avvio del programma.
+
+Tcp and User command mode activated
+Accessing log file...
+objectDump, press help to get the available command list
+
+b1.
+print files
+./ConfigurationFile
+./RawData/data.txt
+./LogFile
+
+E' il path dei file principali usati dal programma
+
+c.
+init
+
+Digitizer initialization...
+Board model: DT5751
+Model: 11
+Channels: 4
+Form factor: 2
+FamilyCode: 5
+ROC_FirmwareRel: 04.02 - Build E325
+AMC_FirmwareRel: 133.03 - Build E127
+SerialNumber: 244
+PCB_Revision: 2
+ADC_NBits: 10
+SAMCorrectionDataLoaded: 0
+CommHandle: 0
+License: 00046EB60C760000
+
+d.
+check
+
+Checking configuration file...
+OPEN PCI 0 0 0
+MAX_NUM_EVENTS_BLT 200
+RECORD_LENGTH 10000
+FPIO_LEVEL ttl
+EXTERNAL_TRIGGER acquisition_only
+GNUPLOT_PATH gnuplot
+CHANNEL_ENABLE_MASK 0x1
+CH 0 DC_OFFSET 0xf332
+
+Questo e' quello che il programma ha letto dal file di configurazione che, attualmente, non contiene i nuovi parametri DPP:
+bisogna modificarli "a mano" guardando nella funzione void DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
+del file DigitizerStateMachine.cpp
+
+e.
+setup
+
+Digitizer setup done
+
+Le altre cose che sono stampate
+
+Funzione di settaggio parametri: 0
+Registro 1: 0
+Registro 2: 0
+Registro 3: 0
+Event size: 3200
+Waveforms size: 60168
+
+Non ci sono nella versione "normale" del programma e stampano i valori di uscita delle funzioni DPP.
+
+f.
+rawstart
+
+Starting Thread RawDataWriting...
+DigitizerStateMachine: Starting RawData thread
+
+indico al programma di salvare su disco i dati raw
+
+d.
+start
+
+start
+Data acquisition starting...
+DigitizerStateMachine: Inizio la lettura dei dati
+
+Inizia l'acquisizione
+
+e.
+stop
+
+Stopping data acquisition...
+DigitizerStateMachine: Interrompo la lettura dei dati
+
+Ferma l'acquisizione
+
+f.
+status
+
+Numbers of events to write: infinite
+Numbers of events already written: 0
+Data acquisition thread OFF
+Preprocessing thread OFF
+Raw data thread ON
+Visualization thread OFF
+
+Controllo lo stato del programma.
+
+N.B.
+Data acquisition thread e' l'acquisizione "generale" che si fa partire con start e si ferma con stop.
+Numbers of events already written e' il numero di burst salvati che puo' contenere al piu' MAX_NUM_EVENTS_BLT eventi.
+
+g.
+exit
+
+Esco dal programma.
+
+

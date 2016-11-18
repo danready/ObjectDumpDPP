@@ -371,140 +371,150 @@ int main (int argc, char *argv[])
 	for (i=0;i<number_of_lines;i++)
 		fscanf(sizedatirozzi,"%d", &buffersize[i]);
 
-	CAEN_DGTZ_751_ZLE_Event_t              *Events[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-	
-	//CAEN_DGTZ_751_ZLE_Event_t              **Events;
-	
-	//Events = NULL;
-	
-	CAEN_DGTZ_751_ZLE_Waveforms_t          *Waveforms=NULL;
-
-
-	//~ uint32_t AllocatedSize;
-
-	//~ CAEN_DGTZ_MallocZLEEvents(handle, Events, &AllocatedSize); 
-	//~ CAEN_DGTZ_MallocZLEWaveforms(handle, &Waveforms, &AllocatedSize); 
-	
-		uint32_t AllocatedSize;
-
-
-//Programming
-		CAEN_DGTZ_751_ZLE_Params_t ZLEParams;
-		
-			//	ZLEcsCFile->DataFromFile = 0;
-
-		for(int i=0; i<8; i++) {
-			ZLEParams.ZleUppThr[i]	= 100; //ZLE_UPP_THRESHOLD
-			ZLEParams.ZleUndThr[i]	= 0; //ZLE_UND_THRESHOLD
-			ZLEParams.NSampBck[i]	= 2; //ZLE_NSAMP_BACK
-			ZLEParams.NSampAhe[i]	= 1; //ZLE_NSAMP_AHEAD
-			ZLEParams.selNumSampBsl[i] = 0; //SEL_NSBL
-			ZLEParams.bslThrshld[i]= 4; //BSL_THRESHOLD
-			ZLEParams.bslTimeOut[i]= 100; //BSL_TIMEOUT
-		}
-		ZLEParams.preTrgg	= 0; //PRE_TRIGGER
-
-
-	CAEN_DGTZ_Reset (handle);
-	CAEN_DGTZ_SetRecordLength (handle, 5000000);
-	CAEN_DGTZ_SetMaxNumEventsBLT (handle, 200);
-	CAEN_DGTZ_SetZLEParameters(handle,0x1,&ZLEParams);
-	CAEN_DGTZ_WriteRegister(handle, 0x8038, (ZLEParams.preTrgg & 0xFF));
-
-
-
-	/* Allocate memory for the events */
-	CAEN_DGTZ_MallocZLEEvents(handle, (void **)Events, &AllocatedSize); 
-	
-	//Events = malloc(10000000);
-	
-	//fprintf(stderr, "Event size: %d\n", AllocatedSize);
-
-	/* Allocate memory for the waveforms */
-	CAEN_DGTZ_MallocZLEWaveforms(handle, (void **)&Waveforms, &AllocatedSize); 
-
-	//fprintf(stderr, "Waveforms size: %d\n", AllocatedSize);
-
 	//Per ogni burst di dati
 	for (l=0;l<number_of_lines;l++)
 	{
-		//fprintf(stderr, "Decoding burst %d\n", l);
-		//fprintf(eventodecodificato, "\n\n################SERIE DI EVENTI NUMERO: %d################\n\n", l);
-
-		//fprintf(stderr, "Record Length\tTriggerTimeStamp");
+		fprintf(stderr, "Decoding burst %d\n", l);
+		fprintf(eventodecodificato, "\n\n################SERIE DI EVENTI NUMERO: %d################\n\n", l);
 
 		//Leggo dal file contenente i dati da decodificare il primo burst di dati.
 		buffer=(char *)malloc(buffersize[l]);
-		
 		fread(buffer, buffersize[l], 1, datirozzi);
 
 		//Ricavo il numero di eventi presenti nel primo burst di dati.
-		//ret = CAEN_DGTZ_GetNumEvents (handle, buffer, buffersize[l], &numEvents);
-		//CAEN_DGTZ_MallocZLEEvents(handle, (void **)Events, &AllocatedSize);
-		//CAEN_DGTZ_MallocZLEWaveforms(handle, (void **)&Waveforms, &AllocatedSize); 
-		ret = CAEN_DGTZ_GetZLEEvents(handle, buffer, buffersize[l], Events,  &numEvents);
-		
+		ret = CAEN_DGTZ_GetNumEvents (handle, buffer, buffersize[l], &numEvents);
 		conta += numEvents;
 
+		//Se c'e' almeno un evento, procedo con la decodifica
+		for (i = 0; (unsigned int) i < numEvents; i++)
+		{ 
+			//Ricavo informazioni sull'evento.
+			ret = CAEN_DGTZ_GetEventInfo (handle, buffer, buffersize[l], i, &eventInfo,
+			&evtptr);
 
-		for (int ch = 0; ch < 1; ch++)
-		{
-			
-			//Se c'e' almeno un evento, procedo con la decodifica
-			
-			
-			
-			for (i = 0; (unsigned int) i < numEvents; i++)
-			{ 
-				
-				CAEN_DGTZ_DecodeZLEWaveforms(handle, &(Events[ch][i]), Waveforms);
-				//WriteOutputFiles(ch, Waveforms,Events[ch][i]);
-				
+			//Se il digitizer non e' della famiglia XX742 ne' della famiglia XX743
+			if (FamilyCode != CAEN_DGTZ_XX742_FAMILY_CODE && FamilyCode != CAEN_DGTZ_XX743_FAMILY_CODE)
+			{
+				//Distinguo il caso in cui il digitizer sia a 8 nbits (occorre farlo perche' l'evento deve essere 
+				//decodificato con un tipo di dato diverso.
+				if (FamilyCode == CAEN_DGTZ_XX721_FAMILY_CODE || FamilyCode == CAEN_DGTZ_XX731_FAMILY_CODE)
 				{
-				int  j, ns;
+					//Decodifico l'evento
+					ret = CAEN_DGTZ_DecodeEvent (handle, evtptr, (void **)&Evt8);
 
-				int Size = Waveforms->Ns;
+					//Stampo alcune informazioni riguardanti l'evento decodificato.
+					fprintf(eventodecodificato, "BoardID: %d\n", eventInfo.BoardId);
+					fprintf(eventodecodificato, "Event Number: %d\n", eventInfo.EventCounter);
+					fprintf(eventodecodificato, "Trigger Time Stamp: %u\n", eventInfo.TriggerTimeTag);
 
-					// Write the Channel Header
-					fprintf(eventodecodificato, "%d\t%u\n", Size,Events[ch][i].timeTag);
-					//fprintf(eventodecodificato, "Channel: %d\n", ch);
-					//fprintf(eventodecodificato, "Event Baseline: %d\n", Events[ch][i].baseline);
-					//fprintf(eventodecodificato, "Trigger Time Stamp: %u\n\n", Events[ch][i].timeTag);
-					//for(j=0; j<Size; j++) {
-						//fprintf(eventodecodificato, "%04d\t%01d\n", Waveforms->Trace1[j],Waveforms->Discarded[j]);
-					//}
+					//Stampo sul file puntato da eventodecodificato i campioni presenti in ogni canale
+					for (o=0; o<max_channels; o++)
+					{
+						fprintf(eventodecodificato, "\n\n################CHANNEL: %d################\n", o);
+						for (j=0; j<Evt8->ChSize[o]; j++)
+						{
+							fprintf(eventodecodificato, "%d\n",
+							(int) Evt8->DataChannel[o][j]);
+						}
+					}
+					//Libero le risorse occupate da Evt8
+					CAEN_DGTZ_FreeEvent(handle, (void **) &Evt8);
 				}
-				
-				//~ //Ricavo informazioni sull'evento.
-				//~ ret = CAEN_DGTZ_GetEventInfo (handle, buffer, buffersize[l], i, &eventInfo,
-				//~ &evtptr);
+				else
+				{
+					//Decodifico l'evento
+					ret = CAEN_DGTZ_DecodeEvent (handle, evtptr, (void **)&Evt16);
 
-				//~ //Decodifico l'evento
-				//~ ret = CAEN_DGTZ_DecodeEvent (handle, evtptr, (void **)&Evt16);
+					//Stampo alcune informazioni riguardanti l'evento decodificato.
+					fprintf(eventodecodificato, "BoardID: %d\n", eventInfo.BoardId);
+					fprintf(eventodecodificato, "Event Number: %d\n", eventInfo.EventCounter);
+					fprintf(eventodecodificato, "Trigger Time Stamp: %u\n", eventInfo.TriggerTimeTag);
 
-				//~ //Stampo alcune informazioni riguardanti l'evento decodificato.
-				//~ fprintf(eventodecodificato, "BoardID: %d\n", eventInfo.BoardId);
-				//~ fprintf(eventodecodificato, "Event Number: %d\n", eventInfo.EventCounter);
-				//~ fprintf(eventodecodificato, "Trigger Time Stamp: %u\n", eventInfo.TriggerTimeTag);
+					//Stampo sul file puntato da eventodecodificato i campioni presenti in ogni canale
+					for (o=0; o<max_channels; o++)
+					{
+						fprintf(eventodecodificato, "\n\n################CHANNEL: %d################\n", o);
+						for (j=0; j<Evt16->ChSize[o]; j++)
+						{
+							fprintf(eventodecodificato, "%d\n",
+							(int) Evt16->DataChannel[o][j]);
+						}
+					}
 
-				//~ //Stampo sul file puntato da eventodecodificato i campioni presenti in ogni canale
-				//~ for (o=0; o<max_channels; o++)
-				//~ {
-					//~ fprintf(eventodecodificato, "\n\n################CHANNEL: %d################\n", o);
-					//~ for (j=0; j<Evt16->ChSize[o]; j++)
-					//~ {
-						//~ fprintf(eventodecodificato, "%d\n",
-						//~ (int) Evt16->DataChannel[o][j]);
-					//~ }
-				//~ }
+					//Libero le risorse occupate da Evt16
+					CAEN_DGTZ_FreeEvent(handle, (void **) &Evt16);
+				}
+			}
+			//Se il digitizer e' della famiglia XX742
+			else if (FamilyCode == CAEN_DGTZ_XX742_FAMILY_CODE)
+			{
+				//Decodifico l'evento
+				X742_DecodeEvent (evtptr, (void **)&Evt742);
 
-				//~ //Libero le risorse occupate da Evt16
-				//~ CAEN_DGTZ_FreeEvent(handle, (void **) &Evt16);
+				//Stampo alcune informazioni riguardanti l'evento decodificato.
+				fprintf(eventodecodificato, "BoardID: %d\n", eventInfo.BoardId);
+				fprintf(eventodecodificato, "Event Number: %d\n", eventInfo.EventCounter);
+				fprintf(eventodecodificato, "Trigger Time Stamp: %u\n", eventInfo.TriggerTimeTag);
 
-			}	//for (i = 0; (unsigned int) i < numEvents; i++)
-		}
-		//CAEN_DGTZ_FreeZLEEvents(handle,Events);
-		//CAEN_DGTZ_FreeZLEWaveforms(handle,Waveforms);
+				//Stampo sul file puntato da eventodecodificato i campioni presenti in ogni canale di ogni gruppo
+				for (o=0; o<max_groups; o++)
+				{
+					if (Evt742->GrPresent[o] == 1)
+					{
+						fprintf(eventodecodificato, "\n\n################GROUP: %d################\n\n", o);
+						for (j=0; j<MAX_X742_CHANNEL_SIZE; j++)
+						{
+							fprintf(eventodecodificato, "\n\n################CHANNEL: %d################\n", j);                                    
+							for (k = 0; k < Evt742->DataGroup[o].ChSize[j] ; k++)
+							{
+								fprintf(eventodecodificato, "%d\n",
+								(int) Evt742->DataGroup[o].DataChannel[j][k]);
+							} //for (k = 0; k < Evt->DataGroup[i].ChSize[j] ; k++)
+						} //for (j=0; j<MAX_X742_CHANNEL_SIZE; j++)
+					} //if (Evt->GrPresent[i] == 1)
+				} //for (i=0; i<MAX_X742_GROUP_SIZE; i++)
+
+				//Libero le risorse occupate da Evt742
+				CAEN_DGTZ_FreeEvent(handle, (void **) &Evt742);
+			} // END OF ELSE IF (FamilyCode == CAEN_DGTZ_XX742_FAMILY_CODE)
+			//Se il digitizer e' della famiglia XX743
+			else if (FamilyCode == CAEN_DGTZ_XX743_FAMILY_CODE)
+			{
+				CAEN_DGTZ_AllocateEvent (handle, (void**)&Evt743);
+
+				//Decodifico l'evento
+				ret = CAEN_DGTZ_DecodeEvent (handle, evtptr, (void **)&Evt743);
+
+				//Stampo alcune informazioni riguardanti l'evento decodificato.
+				fprintf(eventodecodificato, "BoardID: %d\n", eventInfo.BoardId);
+				fprintf(eventodecodificato, "Event Number: %d\n", eventInfo.EventCounter);
+				fprintf(eventodecodificato, "Trigger Time Stamp: %u\n", eventInfo.TriggerTimeTag);
+
+				//Stampo sul file puntato da eventodecodificato i campioni presenti in ogni canale di ogni gruppo
+				for (o=0; o<max_groups; o++)
+				{
+					if (Evt743->GrPresent[o] == 1)
+					{
+						fprintf(eventodecodificato, "\n\n################GROUP: %d################\n\n", o);
+						for (j=0; j<MAX_X743_CHANNELS_X_GROUP; j++)
+						{
+							fprintf(eventodecodificato, "\n\n################CHANNEL: %d################\n", j);                                    
+							for (k = 0; k < Evt743->DataGroup[o].ChSize ; k++)
+							{
+								fprintf(eventodecodificato, "%d\n",
+								(int) Evt743->DataGroup[o].DataChannel[j][k]);
+							} //for (k = 0; k < Evt->DataGroup[i].ChSize ; k++)
+						} //for (j=0; j<X743_CHANNELS_X_GROUP; j++)
+					} //if (Evt->GrPresent[i] == 1)
+				} //for (i=0; i<max_groups; i++)
+
+				//Libero le risorse occupate da Evt743
+				CAEN_DGTZ_FreeEvent(handle, (void **) &Evt743);
+
+			}
+
+		}	//for (i = 0; (unsigned int) i < numEvents; i++)
+
 		free(buffer);
 		buffer = NULL;
 	} // for (l=0;l<number_of_lines;l++)

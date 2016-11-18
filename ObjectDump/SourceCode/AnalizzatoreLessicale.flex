@@ -116,7 +116,7 @@ fine di questo file.
 			mioconfig->header_yes_no=YesNoAnswer(yytext);
 	}
 
-<SETUP,PRINT>^[Rr][eE][cC][oO][rR][dD]_[lL][eE][nN][gG][tT][hH][ \t]+[0-9]{1,5}[ \t]*$ {
+<SETUP,PRINT>^[Rr][eE][cC][oO][rR][dD]_[lL][eE][nN][gG][tT][hH][ \t]+[0-9]{1,10}[ \t]*$ {
 		if (print == YES) 
 		{
 			output_module->OutputFlex(yytext, yyleng+1);

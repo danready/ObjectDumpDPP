@@ -99,7 +99,7 @@ DigitizerStateMachine::Produttore ()
 
 		//~ clock_gettime(CLOCK_REALTIME, &start);
 
-		CAEN_DGTZ_IRQWait(digitizer.handle, 200);
+		//CAEN_DGTZ_IRQWait(digitizer.handle, 200);
 		//~ fprintf(stderr, "Sono qui!!!\n");
 		tmp.RawDataRead ();
 
@@ -408,7 +408,7 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 		//digitizer.DigitizerObjectGenericSetChannelSelfTriggerThreshold ();
 		digitizer.DigitizerObjectGenericSetIOLevel ();
 		
-		CAEN_DGTZ_SetZLEParameters(digitizer.handle,digitizer.internal_config.channel_enable_mask,&ZLEParams); //Possibile errore!
+		fprintf(stderr, "Funzione di settaggio parametri: %d\n", CAEN_DGTZ_SetZLEParameters(digitizer.handle,digitizer.internal_config.channel_enable_mask,&ZLEParams)); //Possibile errore!
 		
 		digitizer.DigitizerObjectGenericSetDCOffset ();
 		
@@ -417,11 +417,11 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 		
 		uint32_t d32;
 	    d32 = ( ((0 & 0x1)<<3)| (0x1<<4));
-	    CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8004, d32);
-	    CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8008, 0x100);
+	    fprintf(stderr, "Registro 1: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8004, d32));
+	    fprintf(stderr, "Registro 2: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8008, 0x100));
 	    
 	    
-	    CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8038, (ZLEParams.preTrgg & 0xFF));
+	    fprintf(stderr, "Registro 3: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8038, (ZLEParams.preTrgg & 0xFF)));
 	    
 		//digitizer.DigitizerObjectGenericSetSelfTrigger ();
 		//digitizer.DigitizerObjectGenericSetFastTriggerDigitizing ();
@@ -443,8 +443,25 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 		}
 
 
-		CAEN_DGTZ_SetInterruptConfig( digitizer.handle, CAEN_DGTZ_ENABLE,
-					  1,0xAAAA ,1, CAEN_DGTZ_IRQ_MODE_ROAK);
+		//CAEN_DGTZ_SetInterruptConfig( digitizer.handle, CAEN_DGTZ_ENABLE,
+			//		  1,0xAAAA ,1, CAEN_DGTZ_IRQ_MODE_ROAK);
+					  
+					  
+	CAEN_DGTZ_751_ZLE_Event_t              *Events[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+	
+	CAEN_DGTZ_751_ZLE_Waveforms_t          *Waveforms=NULL;				  
+
+	uint32_t AllocatedSize;
+
+	/* Allocate memory for the events */
+	CAEN_DGTZ_MallocZLEEvents(digitizer.handle, (void **)Events, &AllocatedSize); 
+
+	fprintf(stderr, "Event size: %d\n", AllocatedSize);
+
+	/* Allocate memory for the waveforms */
+	CAEN_DGTZ_MallocZLEWaveforms(digitizer.handle, (void **)&Waveforms, &AllocatedSize); 
+
+	fprintf(stderr, "Waveforms size: %d\n", AllocatedSize);
 
 	}
 	else

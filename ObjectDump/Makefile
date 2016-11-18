@@ -11,7 +11,7 @@ client: ./ObjectCode/ClientApplication.o
 	gcc ./ObjectCode/ClientApplication.o -o objectdumpclient -lpthread
 
 decode: ./ObjectCode/Decode.o
-	gcc ./ObjectCode/Decode.o -o ./RawData/decode -lCAENDigitizer
+	gcc ./ObjectCode/Decode.o -o ./RawData/decode -lCAENDigitizer -fpermissive
 
 decode742: ./ObjectCode/Decode742.o
 	g++ ./ObjectCode/Decode742.o -o ./RawData/decode742 -lCAENDigitizer `root-config --glibs`
