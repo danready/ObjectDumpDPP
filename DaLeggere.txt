@@ -22,10 +22,13 @@ CAEN_DGTZ_WriteRegister(handle, 0x8008, 0x100));
 
 no.
 
+Per modificare il programmino di decodifica ho modificato il file OfflineReadout.cpp
+I files OfflineReadout_BAK.cpp e OfflineReadout_BAK.h sono quelli originali.
+
 4. 
 I target principali del makefile sono:
-"make" per compilare il programma.
-"make remove" per cancellare il programma.
+"make" per compilare tutto il sistema.
+"make remove" per cancellare tutto il sistema.
 Se modifichi il file DefineGeneral.h devi fare "make remove" e poi "make"
 
 5.

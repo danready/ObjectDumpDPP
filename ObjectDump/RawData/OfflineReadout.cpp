@@ -388,7 +388,9 @@ int main (int argc, char *argv[])
 		uint32_t AllocatedSize;
 
 
-//Programming
+//Programming the digitizer
+/*
+
 		CAEN_DGTZ_751_ZLE_Params_t ZLEParams;
 		
 			//	ZLEcsCFile->DataFromFile = 0;
@@ -410,7 +412,7 @@ int main (int argc, char *argv[])
 	CAEN_DGTZ_SetMaxNumEventsBLT (handle, 200);
 	CAEN_DGTZ_SetZLEParameters(handle,0x1,&ZLEParams);
 	CAEN_DGTZ_WriteRegister(handle, 0x8038, (ZLEParams.preTrgg & 0xFF));
-
+*/
 
 
 	/* Allocate memory for the events */
