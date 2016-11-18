@@ -1,0 +1,38 @@
+  -----------------------------------------------------------------------------
+
+                   --- CAEN SpA - Computing Division ---
+
+  -----------------------------------------------------------------------------
+
+  ZLEControlSoftware Release Notes
+
+  -----------------------------------------------------------------------------
+ 
+  Rel. 1.0 - February 2014 - First official Release
+
+  -----------------------------------------------------------------------------
+
+
+  Description
+  -----------
+
+  This file describes the revision history of ZLEControlSoftware, a sample program for
+  the CAEN VME Digitisers boards with ZLE.
+  See the file README.txt for more informations.
+
+  System Requirements
+  -------------------
+
+  - CAEN Digitizer library
+  - Linux OS
+  - GNUplot 4.2 (www.gnuplot.org)
+
+
+  How to get support
+  ------------------
+
+  Our Software Support Group is available for questions, support and any other
+  software related issue concerning CAEN products; for software support
+  visit the page www.caen.it/computing/support.php or send an email to
+  support.computing@caen.it
+  

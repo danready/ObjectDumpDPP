@@ -1,0 +1,142 @@
+# ****************************************************************
+# ZLE ControlSoftware Configuration File
+# ****************************************************************
+
+# NOTE:
+# The lines between the commands @OFF and @ON will be skipped.
+# This can be used to exclude parts of the file.
+
+# ----------------------------------------------------------------
+# Settings common to all channels
+# ----------------------------------------------------------------
+[COMMON]
+
+# OPEN: opens the digitizer.
+# Options: USB 0 0      Desktop/NIM digitizer through USB              
+#          USB 0 BA     VME digitizer through USB-V1718 (BA = BaseAddress of the VME board, 32 bit hex)
+#          PCI 0 0 0    Desktop/NIM/VME through CONET (optical link) 
+#          PCI 0 0 BA   VME digitizer through V2718 (BA = BaseAddress of the VME board, 32 bit hex)
+OPEN USB 0 0
+#OPEN USB 0 32100000
+#OPEN PCI 0 0 0
+#OPEN PCI 0 0 32100000
+
+# GNUPLOT_PATH: path to gnuplot executable file.
+GNUPLOT_PATH  ".\"
+
+# EXTERNAL_TRIGGER: external trigger input settings. When enabled, the ext. trg. can be either 
+# propagated (ACQUISITION_AND_TRGOUT) or not (ACQUISITION_ONLY) through the TRGOUT.
+# Options: DISABLED, ACQUISITION_ONLY, ACQUISITION_AND_TRGOUT.
+EXTERNAL_TRIGGER   ACQUISITION_ONLY
+
+# MAX_NUM_EVENTS_BLT: maximum number of events to read out in one Block Transfer. 
+# Options: 0 to 600 (recommended 200).
+MAX_NUM_EVENTS_BLT   200
+
+# FPIO_LEVEL: type of the front panel I/O LEMO connectors. 
+# Options: NIM, TTL.
+FPIO_LEVEL  TTL
+
+# WRITE_REGISTER: generic write register access. This command allows the user to have a direct write access to the
+# registers of the board. NOTE: all the direct write accesses are executed before the other setting, thus it might
+# happen that one specific setting overwrites the regsiter content.
+# Syntax: WRITE_REGISTER ADDRESS DATA, where ADDRESS is the address offset of the register (16 bit hex)
+# and DATA is the value being written (31 bit hex).
+# Example: WRITE_REGISTER  1080  00000010  # Set the threshold of channel 0 to 16 ADC counts (hex 10)
+# WRITE_REGISTER  8168  8  
+
+# RECORD_LENGTH
+# Options: 0 to (1048575 * 8)
+RECORD_LENGTH         10000
+
+# PRE_TRIGGER: allows to set the nr. of samples of the pre-trigger (Ns_pre = PRE_TRIGGER * 8).
+# Options: 0 to 1023.
+PRE_TRIGGER        0
+
+# TEST_WAVEFORM: if set to ENABLED, the digitizer generates a test waveform instead of acquire data from the channel.  
+# Options: ENABLED, DISABLED.
+TEST_WAVEFORM DISABLED
+
+# ----------------------------------------------------------------
+# The following setting can be applied on channel by channel
+# basis if you write thi in the Individual Setting Section; 
+# written in the [COMMON] section these are applied to all channels.
+# ----------------------------------------------------------------
+
+# ZLE_NSAMP_BACK: sets the nr. of samples of the Look Back Window (Ns_LBW = ZLE_NSAMP_BACK * 8).
+# Options: 2 to 1023.
+ZLE_NSAMP_BACK        2 
+
+# ZLE_NSAMP_AHEAD: sets the nr. of samples of the Look Ahead Window (Ns_LAW = ZLE_NSAMP_AHEAD * 8).
+# Options: 0 to 1023.
+ZLE_NSAMP_AHEAD        1
+
+# ZLE_UPP_THRESHOLD: sets the level of the positive threshold.
+# Options: 0 to 1023 (if SEL_NSBL = 0, it is an absolute threshold, otherwise, it is referred to the baseline).
+ZLE_UPP_THRESHOLD    100
+
+# ZLE_UND_THRESHOLD: sets the level of the negative threshold.
+# Options: 0 to 1023 (if SEL_NSBL = 0, it is an absolute threshold, otherwise, it is referred to the baseline).
+ZLE_UND_THRESHOLD    0
+
+# SEL_NSBL: sets the nr. samples of the mean filter for the baseline calculation.
+# Options: 0->0samp; 1->8samp; 2->16samp; 3->32samp; 4->64samp; 5->128samp ; 6->256samp; 7->512samp
+SEL_NSBL             0
+
+# BSL_THRESHOLD: defines the acceptance band for the baseline calculation.
+# Options: 1 to 127.
+BSL_THRESHOLD         4
+
+# BSL_TIMEOUT: defines the maximum time (number of 125 MHz clock cycles) in witch the input signal 
+# stays outside the safety band for the baseline mean calculation.
+# Options: 1 to 255.
+BSL_TIMEOUT           100
+
+# ----------------------------------------------------------------
+# Individual Settings 
+# ----------------------------------------------------------------
+# The following setting are usually applied on channel by channel
+# basis; however, you can put them also in the [COMMON] section in
+# ordere to apply them to all the channels.
+# ----------------------------------------------------------------
+
+# ENABLE_INPUT: enable/disable one channel (or one group in the case of the Mod 740)
+# Options: YES, NO
+
+# DC_OFFSET: DC offset adjust (DAC channel setting) in percent of the Full Scale. 
+# -50: analog input dynamic range = -Vpp to 0 (negative signals)
+# +50: analog input dynamic range = 0 to +Vpp (positive signals)
+# 0:   analog input dynamic range = -Vpp/2 to +Vpp/2 (bipolar signals)
+# Options: -50.0 to 50.0  (floating point)
+
+[0]
+ENABLE_INPUT           YES
+DC_OFFSET              +45
+
+[1]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[2]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[3]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[4]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[5]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[6]
+ENABLE_INPUT           NO
+DC_OFFSET              0
+
+[7]
+ENABLE_INPUT           NO
+DC_OFFSET              0

@@ -1,0 +1,54 @@
+    -----------------------------------------------------------------------------
+
+                       --- CAEN SpA - Computing Division ---
+
+    -----------------------------------------------------------------------------
+
+    CAEN ZLEControlSoftware Rel. 1.0
+
+    Installation and Use Instructions
+
+    -----------------------------------------------------------------------------
+
+    February 2014
+
+    -----------------------------------------------------------------------------
+
+
+  Content
+  -----------------------------------------------------------------------------
+
+  README.txt        :  This file.
+
+  ReleaseNotes.txt  :  Revision History and notes.
+
+   src          :  Source files
+   inc          :  Include files
+
+  System Requirements
+  -----------------------------------------------------------------------------
+  - CAEN Digitizer library
+  - Linux OS
+  - GNUplot 4.2 (www.gnuplot.org)
+
+
+  How to get support
+  -----------------------------------------------------------------------------
+  Our Software Support Group is available for questions, support and any other
+  software related issue concerning CAEN products; for software support
+  visit the page www.caen.it/computing/support.php or send an email to
+  support.computing@caen.it
+
+
+  Syntax
+  -----------------------------------------------------------------------------
+  ZLEControlSoftware [ConfigFile]
+  Default config file is "/etc/ZLEControlSoftware/ZLEControlSoftwareConfig.txt"
+
+
+  Keyword list and syntax for the configuration file:
+  -----------------------------------------------------------------------------
+  For configuration file syntax please refer to the ZLEControlSoftware Manual.
+
+  -----------------------------------------------------------------------------
+

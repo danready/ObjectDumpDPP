@@ -1,0 +1,7 @@
+To install ZLEControlSoftware type:
+
+./configure
+./make
+./make install
+
+After install ZLEControlSoftware program is under '/usr/local/bin' and the cofiguration file is under '/etc/ZLEControlSoftware/'.

@@ -1,0 +1,78 @@
+Funzioni di Setup usate:
+
+	CAEN_DGTZ_ErrorCode ret;
+
+	CAEN_DGTZ_751_ZLE_Event_t              *Events[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+	CAEN_DGTZ_751_ZLE_Waveforms_t          *Waveforms=NULL;
+	CAEN_DGTZ_BoardInfo_t           BoardInfo;
+
+	ret = CAEN_DGTZ_OpenDigitizer(ZLEcsCFile.LinkType, ZLEcsCFile.LinkNum, ZLEcsCFile.ConetNode, ZLEcsCFile.BaseAddress, &handle);
+	ret = CAEN_DGTZ_GetInfo(handle, &BoardInfo);
+
+	ret |= CAEN_DGTZ_Reset(handle);
+	ret |= CAEN_DGTZ_SetRecordLength(handle, ZLEcsCFile.recordLength);	
+	ret |= CAEN_DGTZ_SetIOLevel(handle, ZLEcsCFile.FPIOtype);
+	ret |= CAEN_DGTZ_SetMaxNumEventsBLT(handle, ZLEcsCFile.NumEvents);
+	ret |= CAEN_DGTZ_SetAcquisitionMode(handle, CAEN_DGTZ_SW_CONTROLLED);
+	ret |= CAEN_DGTZ_SetExtTriggerInputMode(handle, ZLEcsCFile.ExtTriggerMode);
+	ret |= CAEN_DGTZ_SetChannelEnableMask(handle, ZLEcsCFile.EnableMask);
+	
+	
+	CAEN_DGTZ_SetZLEParameters(handle,ZLEcsCFile.EnableMask,&(ZLEcsCFile.ZLEParams));
+	ret |= CAEN_DGTZ_SetChannelDCOffset(handle, i, ZLEcsCFile.DCoffset[i]); 
+	//Nel mio caso +45 e' uguale a: val = (int)((dc+50) * 65535 / 100); Cioe' 62258, 0xF332
+
+
+	// Sequential access and Individual trigger enabled	
+	d32 = ( ((ZLEcsCFile.TestWave & 0x1)<<3)| (0x1<<4));
+	ret |= CAEN_DGTZ_WriteRegister(handle, 0x8004, d32);
+	ret |= CAEN_DGTZ_WriteRegister(handle, 0x8008, 0x100);
+
+	//Pre-Trigger Register
+	ret |= CAEN_DGTZ_WriteRegister(handle, 0x8038, (ZLEcsCFile.ZLEParams.preTrgg & 0xFF));
+
+	/* execute generic write commands */
+	for(i=0; i<ZLEcsCFile.GWn; i++)
+		ret |= CAEN_DGTZ_WriteRegister(handle, ZLEcsCFile.GWaddr[i], ZLEcsCFile.GWdata[i]);
+
+
+	/* *************************************************************************************** */
+	/* allocate memory for the readout buffer and the event data                               */ 
+	/* *************************************************************************************** */
+	/* WARNING: The mallocs must be done after the digitizer programming */
+	/* Allocate memory for the readout buffer */
+	ret = CAEN_DGTZ_MallocReadoutBuffer(handle, &buffer, &AllocatedSize);
+
+	/* Allocate memory for the events */
+	ret |= CAEN_DGTZ_MallocZLEEvents(handle, Events, &AllocatedSize); 
+
+	/* Allocate memory for the waveforms */
+	ret |= CAEN_DGTZ_MallocZLEWaveforms(handle, &Waveforms, &AllocatedSize); 
+	
+	CAEN_DGTZ_SendSWtrigger(handle);
+	
+	ret = CAEN_DGTZ_ReadData(handle, CAEN_DGTZ_SLAVE_TERMINATED_READOUT_MBLT, buffer, &BufferSize);
+	
+	ret = CAEN_DGTZ_GetZLEEvents(handle, buffer, BufferSize, Events, NumEvents);
+	
+	
+	CAEN_DGTZ_DecodeZLEWaveforms(handle, &(Events[ch][ev]), Waveforms);
+	
+	
+	WriteOutputFiles(ch, Waveforms,Events[ch][ev]);
+	
+	
+	/* stop the acquisition */
+	CAEN_DGTZ_SWStopAcquisition(handle);
+	/* close the plotter */
+	if (PlotVar)
+		ClosePlotter();
+	/* free */
+	CAEN_DGTZ_FreeReadoutBuffer(&buffer);
+	CAEN_DGTZ_FreeZLEEvents(handle,Events);
+	CAEN_DGTZ_FreeZLEWaveforms(handle,Waveforms);
+	/* close digitizer */
+	CAEN_DGTZ_CloseDigitizer(handle);	
+
+Funzioni Dopo l'acquisizione:
+
