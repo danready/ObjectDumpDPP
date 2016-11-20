@@ -137,6 +137,8 @@ public:
    */
   void RawDataWriteOnFile (const char *file_arg);
 
+  void RawDataWriteOnFileProgressive (const char* file_arg);
+
   /**
    * @brief The RawWriteOnFile method writes the events read from the digitizer into the hard disk. 
    * @details The method doesn't decode the events.
@@ -169,6 +171,8 @@ public:
    * @return void
    */
   void RawDataDecode ();
+  
+  void RawDataDecodeDPP ();
 
   /**
    * @brief This overloading is necessary in order to perform a deep copy of the object. 

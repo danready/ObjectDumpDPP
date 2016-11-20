@@ -1,14 +1,2 @@
-Fri Nov 18 15:44:44 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectOpen Line: 111 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:44 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:44 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectGetInfo Line: 135 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetRecordLength Line: 216 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetMaxNumEventsBLT Line: 226 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetAcquisitionMode Line: 391 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetExtTriggerInputMode Line: 265 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectWriteRegister Line: 305 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetIOLevel Line: 361 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:45 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetChannelDCOffset Line: 356 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:44:58 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStartAcquisition Line: 441 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:46:11 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode: 0 Operation completed successfully
-Fri Nov 18 15:46:11 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode: 0 Operation completed successfully
+Sun Nov 20 12:02:41 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode:-5 Invalid device handler
+Sun Nov 20 12:02:41 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode:-5 Invalid device handler

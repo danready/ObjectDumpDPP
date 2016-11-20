@@ -110,10 +110,13 @@ DigitizerStateMachine::Produttore ()
 			{
 				if(num_events_written<num_events_to_write || num_events_to_write == 0)
 				{
-					tmp.RawDataWriteOnFile (application_setup->
-						ApplicationSetupGetDataFilePunt (),
-						application_setup->
-						ApplicationSetupGetDataFileSizePunt ());
+					//~ tmp.RawDataWriteOnFile (application_setup->
+						//~ ApplicationSetupGetDataFilePunt (),
+						//~ application_setup->
+						//~ ApplicationSetupGetDataFileSizePunt ());
+						
+					tmp.RawDataWriteOnFileProgressive(application_setup->
+					application_setup_data_file_path);
 						
 					num_events_written++;
 					
@@ -220,8 +223,8 @@ DigitizerStateMachine::Preprocessing ()
 
 
 				//fprintf(stderr, "Decodifico\n");
-				tmp.RawDataDecode ();
-
+				//tmp.RawDataDecode ();
+				tmp.RawDataDecodeDPP ();
 
 				ReservedPreprocessingInputAreaHandle.lock();
 

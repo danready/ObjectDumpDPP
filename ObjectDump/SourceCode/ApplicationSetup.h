@@ -167,7 +167,9 @@ public:
   /**
   * @brief The mtx_output mutex avoids race conditions inside the methods of the object.
   */    
-  mutex mtx_output;    
+  mutex mtx_output;
+  
+  int file_number;
   
 };
 

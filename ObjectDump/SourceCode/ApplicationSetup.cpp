@@ -61,6 +61,8 @@ ApplicationSetup::ApplicationSetup ()
 
 	imset = 0;
 
+	file_number = 0;
+
 	application_setup_log_file_path = (const char *)malloc ((strlen ("./LogFile") + 1));
 
 	strcpy ((char *) application_setup_log_file_path,"./LogFile");
@@ -78,8 +80,8 @@ ApplicationSetup::ApplicationSetup ()
 	strcpy ((char *) application_setup_data_file_size_path, application_setup_data_file_path);
 	strcat ((char *) application_setup_data_file_size_path, "sz");
 
-	application_setup_data_file_punt = fopen (application_setup_data_file_path, "a");
-	application_setup_data_file_size_punt = fopen (application_setup_data_file_size_path, "a");
+	//application_setup_data_file_punt = fopen (application_setup_data_file_path, "a");
+	//application_setup_data_file_size_punt = fopen (application_setup_data_file_size_path, "a");
 }
 
 
@@ -112,10 +114,10 @@ ApplicationSetup:: ApplicationSetupDataFileModify (const char *application_setup
 	application_setup_data_file_path = (char *) malloc (strlen (application_setup_data_file_path_arg) + 1);
 	strcpy ((char *) application_setup_data_file_path, application_setup_data_file_path_arg);
 
-	if (application_setup_data_file_punt != NULL)
-		fclose (application_setup_data_file_punt);
+	//if (application_setup_data_file_punt != NULL)
+		//fclose (application_setup_data_file_punt);
 
-	application_setup_data_file_punt = fopen (application_setup_data_file_path, "a");
+	//application_setup_data_file_punt = fopen (application_setup_data_file_path, "a");
 
 	free ((void *) application_setup_data_file_size_path);
 	application_setup_data_file_size_path = NULL;
@@ -123,10 +125,12 @@ ApplicationSetup:: ApplicationSetupDataFileModify (const char *application_setup
 	strcpy ((char *) application_setup_data_file_size_path, application_setup_data_file_path_arg);
 	strcat ((char *) application_setup_data_file_size_path, "sz");
 
-	if (application_setup_data_file_size_punt != NULL)
-		fclose (application_setup_data_file_size_punt);
+	//if (application_setup_data_file_size_punt != NULL)
+		//fclose (application_setup_data_file_size_punt);
 
-	application_setup_data_file_size_punt = fopen (application_setup_data_file_size_path, "a");
+	//application_setup_data_file_size_punt = fopen (application_setup_data_file_size_path, "a");
+
+	file_number = 0;
 
 	mtx_output.unlock();  
 }

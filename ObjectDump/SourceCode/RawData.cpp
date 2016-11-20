@@ -46,6 +46,8 @@
 #include <errno.h>
 #include <sys/timex.h>
 
+#include <string>
+
 #define LI 0
 #define VN 3
 #define MODE 3
@@ -133,6 +135,38 @@ RawData::RawDataWriteOnFile (const char *file_arg)
     }   //if (bsize>0)
 }
 
+
+void
+RawData::RawDataWriteOnFileProgressive (const char* file_arg)
+{
+	ApplicationSetup *application_setup;
+	application_setup = ApplicationSetup::Instance ();
+	
+	FILE* rawdata_file;
+	FILE* rawdata_file_size;
+	
+    string rawdata_file_path(file_arg);
+    
+    string rawdata_file_size_path(file_arg);
+    
+    rawdata_file_size_path += "sz";
+    
+    rawdata_file_path += to_string(application_setup->file_number);
+    
+    rawdata_file_size_path += to_string(application_setup->file_number);
+    
+    rawdata_file = fopen (rawdata_file_path.c_str(), "w");
+    rawdata_file_size = fopen (rawdata_file_size_path.c_str(), "w");
+    
+    fprintf (rawdata_file_size, "%d\n", bsize);
+    fwrite (buffer, bsize, 1, rawdata_file);
+    
+    fclose(rawdata_file);
+    fclose(rawdata_file_size);
+	
+	application_setup->file_number++;
+
+}
 
 void
 RawData::RawDataWriteOnFile (FILE * file, FILE * file_size)
@@ -428,6 +462,54 @@ RawData::RawDataRead ()
   //ret_error.digitizer_error_object_print_error (ret);
 }
 
+
+void
+RawData::RawDataDecodeDPP ()
+{
+	string file_decoded("dec_recordlength_trtimetag.txt");
+	
+	FILE* file_decoded_punt;
+	
+	file_decoded_punt = fopen(file_decoded.c_str(), "a");
+	
+	CAEN_DGTZ_751_ZLE_Event_t              *Events[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};	
+	CAEN_DGTZ_751_ZLE_Waveforms_t          *Waveforms=NULL;
+	
+	uint32_t AllocatedSize;
+	uint32_t numEvents;
+	
+	CAEN_DGTZ_MallocZLEEvents(handle, (void **)Events, &AllocatedSize);
+	CAEN_DGTZ_MallocZLEWaveforms(handle, (void **)&Waveforms, &AllocatedSize); 
+	
+	CAEN_DGTZ_GetZLEEvents(handle, buffer, bsize, (void**)Events,  &numEvents);
+	
+	for (int ch = 0; ch < 1; ch++) //In pratica stampa solo il primo canale
+	{
+		for (int i = 0; (unsigned int) i < numEvents; i++)
+		{ 
+			
+			CAEN_DGTZ_DecodeZLEWaveforms(handle, &(Events[ch][i]), Waveforms);
+			
+			int  j, ns;
+
+			int Size = Waveforms->Ns;
+
+			// Write the Channel Header
+			//Stampo record length e trigger time tag
+			fprintf(file_decoded_punt, "%d\t%u\n", Size, Events[ch][i].timeTag);
+
+			//fprintf(stderr, "%d\t%u\n", Size, Events[ch][i].timeTag);
+
+		}	//for (i = 0; (unsigned int) i < numEvents; i++)
+	}
+	
+	fflush(file_decoded_punt);
+	fclose(file_decoded_punt);
+	
+	CAEN_DGTZ_FreeZLEEvents(handle,(void**)Events);
+	CAEN_DGTZ_FreeZLEWaveforms(handle,(void**)Waveforms);
+	
+}
 
 
 void
