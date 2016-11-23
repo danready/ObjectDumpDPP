@@ -63,6 +63,22 @@ ConfObject::ConfObject ()
   group_enable_mask = -1;
   self_trigger_enable_mask = -1;
   self_trigger_enable_mask_mode = -1;
+  
+  pre_trigger = -1;
+  
+  zle_nsamp_back = -1;
+  
+  zle_nsamp_ahead = -1;
+  
+  zle_upp_threshold = -1;
+  
+  zle_und_threshold = -1;
+  
+  bsl_threshold = -1;
+  
+  bsl_timeout = -1;
+  
+  sel_nsbl = -1;
 
   //It could be useful to set a default value for the gnuplot path
   gnuplot = (char *)malloc(strlen("gnuplot") +1);
@@ -335,6 +351,54 @@ ConfObject::PrintAllHuman ()
 	    "self trigger enable mask mode: %s\n\n",
 	    self_trigger_acquisition_mode_string);
   output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "pre_trigger: %d\n\n",
+	    pre_trigger);
+  output_module->Output(stringa);
+
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_nsamp_back: %d\n\n",
+	    zle_nsamp_back);
+  output_module->Output(stringa);
+
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_nsamp_ahead: %d\n\n",
+	    zle_nsamp_ahead);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_upp_threshold: %d\n\n",
+	    zle_upp_threshold);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_und_threshold: %d\n\n",
+	    zle_und_threshold);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "bsl_threshold: %d\n\n",
+	    bsl_threshold);
+  output_module->Output(stringa);      
+
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "bsl_timeout: %d\n\n",
+	    bsl_timeout);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "sel_nsbl: %d\n\n",
+	    sel_nsbl);
+  output_module->Output(stringa);    
 
 
   for (i = 0; i < MAXCHANNELOBJECT; i++)
@@ -436,7 +500,53 @@ ConfObject::PrintAll ()
 	    self_trigger_enable_mask_mode);
   output_module->Output(stringa);
 
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "pre_trigger: %d\n\n",
+	    pre_trigger);
+  output_module->Output(stringa);
 
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_nsamp_back: %d\n\n",
+	    zle_nsamp_back);
+  output_module->Output(stringa);
+
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_nsamp_ahead: %d\n\n",
+	    zle_nsamp_ahead);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_upp_threshold: %d\n\n",
+	    zle_upp_threshold);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "zle_und_threshold: %d\n\n",
+	    zle_und_threshold);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "bsl_threshold: %d\n\n",
+	    bsl_threshold);
+  output_module->Output(stringa);      
+
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "bsl_timeout: %d\n\n",
+	    bsl_timeout);
+  output_module->Output(stringa);
+  
+  bzero (stringa, STANDARDBUFFERLIMIT);
+  snprintf (stringa, STANDARDBUFFERLIMIT,
+	    "sel_nsbl: %d\n\n",
+	    sel_nsbl);
+  output_module->Output(stringa);  
 
   for (i = 0; i < MAXCHANNELOBJECT; i++)
     if (channels[i].set != -1)

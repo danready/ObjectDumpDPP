@@ -175,4 +175,13 @@ void ChannelTriggerEnableMask (char *yytext, ConfObject * mioconfig);
 */
 void WriteRegister (char *yytext, ConfObject * mioconfig);
 
+/**
+* @brief The SelNsblOption function gets the information for 
+* @details Ex. yytext contains the string "write register 0x113c 0x00b7", so we can call WriteRegister(yytext, mioconfig).
+* @param yytext contains a matched string.
+* @param mioconfig is where the retrieved informations are stored.
+* @return void
+*/
+void SelNsblOption (char *yytext, ConfObject * mioconfig);
+
 #endif

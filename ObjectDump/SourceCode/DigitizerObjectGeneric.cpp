@@ -200,12 +200,32 @@ DigitizerObjectGeneric::DigitizerObjectGenericSetDesMode ()
 int 
 DigitizerObjectGeneric::DigitizerObjectGenericSetTestPattern ()
 {
+
 	if (internal_config.test_pattern == 1)
 	{
-		ret = CAEN_DGTZ_WriteRegister(handle, CAEN_DGTZ_BROAD_CH_CONFIGBIT_SET_ADD, 1<<3);
+		uint32_t d32;
+	    d32 = ( ((1 & 0x1)<<3)| (0x1<<4));
+	    ret = CAEN_DGTZ_WriteRegister(handle, 0x8004, d32);
+	    logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+	    
+	    ret = CAEN_DGTZ_WriteRegister(handle, 0x8008, 0x100);
 		logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+		
+		return 0;		
+	}
+	else
+	{
+		uint32_t d32;
+	    d32 = ( ((0 & 0x1)<<3)| (0x1<<4));
+	    ret = CAEN_DGTZ_WriteRegister(handle, 0x8004, d32);
+	    logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+	    
+	    ret = CAEN_DGTZ_WriteRegister(handle, 0x8008, 0x100);
+		logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+		
 		return 0;
 	}
+	
 }
 
 
@@ -601,3 +621,62 @@ DigitizerObjectGeneric::DigitizerObjectGenericSetFastTriggerDigitizing ()
 	}   //if (internal_config.BoardInfo.FamilyCode == CAEN_DGTZ_XX742_FAMILY_CODE){
 
 }   //int DigitizerObjectGeneric::DigitizerObjectGenericSetFastTriggerDigitizing ()
+
+
+int
+DigitizerObjectGeneric::DigitizerObjectSetZLEParameters ()
+{
+
+	CAEN_DGTZ_751_ZLE_Params_t ZLEParams;
+
+	for(int i=0; i<8; i++) {
+		
+		if(internal_config.zle_upp_threshold != -1 && internal_config.zle_upp_threshold >= 0 && internal_config.zle_upp_threshold <= 1023)
+			ZLEParams.ZleUppThr[i]	= internal_config.zle_upp_threshold; //ZLE_UPP_THRESHOLD
+		else
+			ZLEParams.ZleUppThr[i]	= 0;
+		
+		if(internal_config.zle_und_threshold != -1 && internal_config.zle_und_threshold >= 0 && internal_config.zle_und_threshold <= 1023)	
+			ZLEParams.ZleUndThr[i]	= internal_config.zle_und_threshold; //ZLE_UND_THRESHOLD
+		else
+			ZLEParams.ZleUndThr[i]	= 0; //ZLE_UND_THRESHOLD
+			
+		if(internal_config.zle_nsamp_back != -1 && internal_config.zle_nsamp_back >= 2 && internal_config.zle_nsamp_back <= 1023)	
+			ZLEParams.NSampBck[i]	= internal_config.zle_nsamp_back; //ZLE_NSAMP_BACK
+		else
+			ZLEParams.NSampBck[i]	= 2; //ZLE_NSAMP_BACK
+			
+		if(internal_config.zle_nsamp_ahead != -1 && internal_config.zle_nsamp_ahead >= 0 && internal_config.zle_nsamp_ahead <= 1023)	
+			ZLEParams.NSampAhe[i]	= internal_config.zle_nsamp_ahead; //ZLE_NSAMP_AHEAD
+		else
+			ZLEParams.NSampAhe[i]	= 0; //ZLE_NSAMP_AHEAD
+			
+		if(internal_config.sel_nsbl != -1)	
+			ZLEParams.selNumSampBsl[i] = internal_config.sel_nsbl; //SEL_NSBL
+		else
+			ZLEParams.selNumSampBsl[i] = 0; //SEL_NSBL
+			
+		if(internal_config.bsl_threshold != -1 && internal_config.bsl_threshold >= 1 && internal_config.bsl_threshold <= 127)	
+			ZLEParams.bslThrshld[i]= internal_config.bsl_threshold; //BSL_THRESHOLD
+		else
+			ZLEParams.bslThrshld[i] = 1; //SEL_NSBL
+			
+		if(internal_config.bsl_timeout != -1 && internal_config.bsl_timeout >= 1 && internal_config.bsl_timeout <= 255)
+			ZLEParams.bslTimeOut[i]= internal_config.bsl_timeout; //BSL_TIMEOUT
+		else	
+			ZLEParams.bslTimeOut[i]= 1; //BSL_TIMEOUT
+	}
+	
+	if(internal_config.pre_trigger != -1 && internal_config.pre_trigger >= 0 && internal_config.pre_trigger <= 1023)
+		ZLEParams.preTrgg	= internal_config.pre_trigger; //PRE_TRIGGER	
+	else
+		ZLEParams.preTrgg	= 0; //PRE_TRIGGER	
+	
+	ret = CAEN_DGTZ_SetZLEParameters(handle,internal_config.channel_enable_mask,&ZLEParams); //Possibile errore!
+	logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+
+	ret = CAEN_DGTZ_WriteRegister(handle, 0x8038, (ZLEParams.preTrgg & 0xFF));
+	logfile->LogFileWrite (ret, __FILE__, __func__, __LINE__);
+	
+	return 0;
+}

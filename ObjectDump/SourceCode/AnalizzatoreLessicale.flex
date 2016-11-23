@@ -386,6 +386,78 @@ fine di questo file.
 				WriteRegister(yytext, mioconfig);
         }
 
+<SETUP,PRINT>^[Pp][Rr][Ee]_[Tt][Rr][Ii][Gg][Gg][Ee][Rr][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->pre_trigger=FindIntegerValue(yytext);
+        }
+
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Bb][Aa][Cc][Kk][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->zle_nsamp_back=FindIntegerValue(yytext);
+        }
+
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Aa][Hh][Ee][Aa][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->zle_nsamp_ahead=FindIntegerValue(yytext);
+        }
+        
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Pp][Pp]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->zle_upp_threshold=FindIntegerValue(yytext);
+        }
+
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Nn][Dd]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->zle_und_threshold=FindIntegerValue(yytext);
+        }
+
+<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->bsl_threshold=FindIntegerValue(yytext);
+        }
+        
+<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Ii][Mm][Ee][Oo][Uu][Tt][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				mioconfig->bsl_timeout=FindIntegerValue(yytext);
+        }
+
+<SETUP,PRINT>^[Ss][Ee][Ll]_[Nn][Ss][Bb][Ll][ \t]+[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				SelNsblOption(yytext, mioconfig);
+        }
+        
 <*>\n
 <*>.
 %%

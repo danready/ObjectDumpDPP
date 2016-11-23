@@ -381,22 +381,6 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 {
 	if (imstarted == 0)
 	{	
-		CAEN_DGTZ_751_ZLE_Params_t ZLEParams;
-		
-			//	ZLEcsCFile->DataFromFile = 0;
-
-		for(int i=0; i<8; i++) {
-			ZLEParams.ZleUppThr[i]	= 100; //ZLE_UPP_THRESHOLD
-			ZLEParams.ZleUndThr[i]	= 0; //ZLE_UND_THRESHOLD
-			ZLEParams.NSampBck[i]	= 2; //ZLE_NSAMP_BACK
-			ZLEParams.NSampAhe[i]	= 1; //ZLE_NSAMP_AHEAD
-			ZLEParams.selNumSampBsl[i] = 0; //SEL_NSBL
-			ZLEParams.bslThrshld[i]= 4; //BSL_THRESHOLD
-			ZLEParams.bslTimeOut[i]= 100; //BSL_TIMEOUT
-		}
-		ZLEParams.preTrgg	= 0; //PRE_TRIGGER
-		
-		
 		
 		int data;
 		digitizer.DigitizerObjectReset ();
@@ -406,31 +390,24 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 		digitizer.DigitizerObjectSetAcquisitionMode (CAEN_DGTZ_SW_CONTROLLED);
 		digitizer.DigitizerObjectGenericSetExtTriggerInputMode ();
 		digitizer.DigitizerObjectGenericSetEnableMask ();
+		
 		//digitizer.DigitizerObjectGenericSetDRS4SamplingFrequency ();
 		//digitizer.DigitizerObjectGenericSetPostTriggerSize ();
 		//digitizer.DigitizerObjectGenericSetChannelSelfTriggerThreshold ();
+		
 		digitizer.DigitizerObjectGenericSetIOLevel ();
 		
-		fprintf(stderr, "Funzione di settaggio parametri: %d\n", CAEN_DGTZ_SetZLEParameters(digitizer.handle,digitizer.internal_config.channel_enable_mask,&ZLEParams)); //Possibile errore!
+		digitizer.DigitizerObjectSetZLEParameters ();
 		
 		digitizer.DigitizerObjectGenericSetDCOffset ();
-		
-		
-		//Probabilmente non serve
-		
-		uint32_t d32;
-	    d32 = ( ((0 & 0x1)<<3)| (0x1<<4));
-	    fprintf(stderr, "Registro 1: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8004, d32));
-	    fprintf(stderr, "Registro 2: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8008, 0x100));
-	    
-	    
-	    fprintf(stderr, "Registro 3: %d\n", CAEN_DGTZ_WriteRegister(digitizer.handle, 0x8038, (ZLEParams.preTrgg & 0xFF)));
-	    
+
 		//digitizer.DigitizerObjectGenericSetSelfTrigger ();
 		//digitizer.DigitizerObjectGenericSetFastTriggerDigitizing ();
 		//digitizer.DigitizerObjectGenericSetDecimationFactor ();
 		//digitizer.DigitizerObjectGenericSetDesMode ();
-		//digitizer.DigitizerObjectGenericSetTestPattern ();
+		
+		digitizer.DigitizerObjectGenericSetTestPattern ();
+		
 		//digitizer.DigitizerObjectGenericSetAllInformations ();
 		////////////
 		//digitizer.DigitizerObjectSetAutomaticCorrectionX742 ();
@@ -449,23 +426,7 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 		//CAEN_DGTZ_SetInterruptConfig( digitizer.handle, CAEN_DGTZ_ENABLE,
 			//		  1,0xAAAA ,1, CAEN_DGTZ_IRQ_MODE_ROAK);
 					  
-					  
-	CAEN_DGTZ_751_ZLE_Event_t              *Events[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
 	
-	CAEN_DGTZ_751_ZLE_Waveforms_t          *Waveforms=NULL;				  
-
-	uint32_t AllocatedSize;
-
-	/* Allocate memory for the events */
-	CAEN_DGTZ_MallocZLEEvents(digitizer.handle, (void **)Events, &AllocatedSize); 
-
-	fprintf(stderr, "Event size: %d\n", AllocatedSize);
-
-	/* Allocate memory for the waveforms */
-	CAEN_DGTZ_MallocZLEWaveforms(digitizer.handle, (void **)&Waveforms, &AllocatedSize); 
-
-	fprintf(stderr, "Waveforms size: %d\n", AllocatedSize);
-
 	}
 	else
 	{

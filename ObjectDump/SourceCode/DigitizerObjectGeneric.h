@@ -181,6 +181,12 @@ public:
   int DigitizerObjectSetAutomaticCorrectionX742 ();
 
   /**
+   * @brief The DigitizerObjectSetZLEParameters method sets
+   * @return int
+   */
+  int DigitizerObjectSetZLEParameters ();
+
+  /**
    * @brief The DigitizerObjectGeneric constructor sets to 0 the set_board_info attribute and gets an instance of the LogFile singleton.
    */
   DigitizerObjectGeneric ();

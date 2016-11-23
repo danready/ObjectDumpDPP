@@ -400,6 +400,28 @@ public:
    * @brief The trigger_enable_mask variable contains the mode for enabling the self trigger of the channel or of the groups (it depends on the model family).
    */
   int self_trigger_enable_mask_mode;
+  
+  /**
+   * @brief The pre_trigger variable contains 
+   */
+  int pre_trigger;
+
+  /**
+   * @brief The zle_nsamp_back variable contains 
+   */
+  int zle_nsamp_back;
+  
+  int zle_nsamp_ahead;
+
+  int zle_upp_threshold;
+
+  int zle_und_threshold;
+  
+  int bsl_threshold;
+  
+  int bsl_timeout;
+  
+  int sel_nsbl;
 
   /**
    * @brief The ConfObject constructor sets all the values of the conf_object attributes to -1.

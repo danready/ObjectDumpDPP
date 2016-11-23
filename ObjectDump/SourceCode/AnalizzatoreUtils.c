@@ -24,6 +24,7 @@
 #include <assert.h>
 #include <regex.h>
 #include <stdbool.h>
+#include <iostream>
 #include "DefineGeneral.h"
 #include "ConfObject.h"
 
@@ -532,9 +533,6 @@ ChannelTriggerEnableMask (char *yytext, ConfObject * mioconfig)
 	}
 }
 
-
-#include <iostream>
-
 void WriteRegister(char *yytext, ConfObject *mioconfig)
 {
     char *punt;
@@ -560,4 +558,29 @@ void WriteRegister(char *yytext, ConfObject *mioconfig)
     mioconfig->registers[i].address = registerAddress;
     mioconfig->registers[i].data = registerData;
     //std::cout << "Settato registro " << registerAddress << " al valore " << registerData << std::endl;
+}
+
+void SelNsblOption (char *yytext, ConfObject * mioconfig)
+{
+	int tmp_option;
+	tmp_option = FindIntegerValue(yytext);
+	
+	if (tmp_option == 0)
+		mioconfig->sel_nsbl = 0;
+	else if(tmp_option == 1)
+		mioconfig->sel_nsbl = 8;
+	else if(tmp_option == 2)
+		mioconfig->sel_nsbl = 16;
+	else if(tmp_option == 3)
+		mioconfig->sel_nsbl = 32;
+	else if(tmp_option == 4)
+		mioconfig->sel_nsbl = 64;
+	else if(tmp_option == 5)
+		mioconfig->sel_nsbl = 128;
+	else if(tmp_option == 6)
+		mioconfig->sel_nsbl = 256;
+	else if(tmp_option == 7)
+		mioconfig->sel_nsbl = 512;
+	else
+		mioconfig->sel_nsbl = -1;
 }
