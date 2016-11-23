@@ -1,29 +1,23 @@
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetRecordLength Line: 236 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetMaxNumEventsBLT Line: 246 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetAcquisitionMode Line: 391 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetExtTriggerInputMode Line: 285 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectWriteRegister Line: 305 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetIOLevel Line: 381 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 676 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 679 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetChannelDCOffset Line: 356 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 221 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:30 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 224 ErrorCode:-5 Invalid device handler
-Wed Nov 23 15:00:32 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectOpen Line: 111 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:32 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:32 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectGetInfo Line: 135 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetRecordLength Line: 236 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetMaxNumEventsBLT Line: 246 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetAcquisitionMode Line: 391 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetExtTriggerInputMode Line: 285 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectWriteRegister Line: 305 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetIOLevel Line: 381 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 676 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 679 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetChannelDCOffset Line: 356 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 221 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:33 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 224 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:52 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode: 0 Operation completed successfully
-Wed Nov 23 15:00:52 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:51:07 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectOpen Line: 111 ErrorCode: -1 Communication error
+Wed Nov 23 15:51:07 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode:-5 Invalid device handler
+Wed Nov 23 15:51:07 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectGetInfo Line: 135 ErrorCode:-5 Invalid device handler
+File: ./SourceCode/DigitizerObject.cpp, Function PrintBoardInfo, Line: 194, Error: can't print board info. Use DigitizerObject::DigitizerObjectgetinfo first. Perhaps you have not open the digitizer?
+Wed Nov 23 15:56:59 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectOpen Line: 111 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:56:59 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:56:59 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectGetInfo Line: 135 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetRecordLength Line: 236 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetMaxNumEventsBLT Line: 246 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetAcquisitionMode Line: 391 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetExtTriggerInputMode Line: 285 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectWriteRegister Line: 305 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetIOLevel Line: 381 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 676 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 679 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetChannelDCOffset Line: 356 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 221 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:12 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 224 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:17 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStartAcquisition Line: 441 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:39 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:48 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode: 0 Operation completed successfully
+Wed Nov 23 15:57:48 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode: 0 Operation completed successfully
