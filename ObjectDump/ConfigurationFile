@@ -116,6 +116,8 @@ CHANNEL_ENABLE_MASK 0x1
 #consultare la documentazione tecnica del digitizer.
 #Esempio: 
 #ALL DC_OFFSET 0x3fff
+#N.B.: DC_OFFSET = ((dc_offesetCAEN+50) * 65535 / 100)
+#DC_OFFSET must be expressed in hexadecimal
 
 #ALL TRIGGER_THRESHOLD triggerthreshold
 #Il parametro ALL TRIGGER_THRESHOLD consente di impostare su tutti i canali disponibili la soglia
@@ -138,6 +140,10 @@ CHANNEL_ENABLE_MASK 0x1
 
 #CH channelnumber DC_OFFSET dcoffset
 #Esempio: Imposta a 0x3fff il dc offset del canale 2.
+#CH 0 DC_OFFSET 0x3fff
+#N.B.: DC_OFFSET = ((dc_offsetCAEN+50) * 65535 / 100)
+#DC_OFFSET must be expressed in hexadecimal
+
 CH 0 DC_OFFSET 0xf332
 #CH 1 DC_OFFSET 0xffff
 #CH 2 DC_OFFSET 0xffff
