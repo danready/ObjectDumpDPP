@@ -14,7 +14,7 @@
 
 #include <arpa/inet.h>
 
-
+#define VERBOSE 0
 
 int main(int argc, char**argv)
 {
@@ -48,7 +48,7 @@ int main(int argc, char**argv)
     time_file = fopen ("time.txt", "w+");
     log_file = fopen ("log.txt", "w+");
     
-    ptr_myfile=fopen("data.txt0","rb");
+    ptr_myfile=fopen("test1.txt","rb");
     if (!ptr_myfile)
     {
         printf("Unable to open file!");
@@ -68,11 +68,11 @@ int main(int argc, char**argv)
         fseek(ptr_myfile,offset,SEEK_SET);
         fread(&nwords,4,1,ptr_myfile);
         
-        printf("Header - Offset = %x - %d\n",nwords,offset);
+       printf("Header - Offset = %x - %d\n",nwords,offset);
     
         if ((nwords >> 28) == 0xa) {
             nwords = nwords & 0xFFFFFFF;
-            printf("Header eventsize - nwords to read = %u - %x\n",nwords,nwords);
+           if (VERBOSE) printf("Header eventsize - nwords to read = %u - %x\n",nwords,nwords);
             fprintf(log_file, "Header eventsize - nwords to read = %u\n",nwords);
             event_found = 0;
         } else {
@@ -87,7 +87,7 @@ int main(int argc, char**argv)
             fread(&word,4,1,ptr_myfile);
     
             ch_mask = word & 0xF;
-            printf("Channel Mask = %x\n", ch_mask);
+            if (VERBOSE) printf("Channel Mask = %x\n", ch_mask);
             fprintf(log_file, "Channel Mask = %x\n", ch_mask);
     
             /// event counter
@@ -96,7 +96,7 @@ int main(int argc, char**argv)
             fread(&word,4,1,ptr_myfile);
     
             event_num = word & 0xFFFFFF;
-            printf("Event Num = %u\n", event_num);
+            if (VERBOSE) printf("Event Num = %u\n", event_num);
             fprintf(log_file, "Event Num = %u\n", event_num);
     
     
@@ -105,7 +105,7 @@ int main(int argc, char**argv)
             fseek(ptr_myfile,offset+12,SEEK_SET);
             fread(&trigger_time_tag,4,1,ptr_myfile);
     
-            printf("Trigger Time Tag = %u\n", trigger_time_tag);
+            if (VERBOSE) printf("Trigger Time Tag = %u\n", trigger_time_tag);
             fprintf(log_file, "Trigger Time Tag = %u\n", trigger_time_tag);
 
             /////// qui bisognerebbe fare il loop sui canali
@@ -116,7 +116,7 @@ int main(int argc, char**argv)
             fseek(ptr_myfile,offset+16,SEEK_SET);
             fread(&word,4,1,ptr_myfile);
     
-            printf("Event CH length = %u\n", word);
+            if (VERBOSE) printf("Event CH length = %u\n", word);
             fprintf(log_file, "Event CH length = %u\n", word);
 
             /// trigger time tag channel
@@ -124,7 +124,7 @@ int main(int argc, char**argv)
             fseek(ptr_myfile,offset+20,SEEK_SET);
             fread(&trigger_time_tag_ch,4,1,ptr_myfile);
     
-            printf("Trigger Time Tag ch = %u\n", trigger_time_tag_ch);
+            if (VERBOSE) printf("Trigger Time Tag ch = %u\n", trigger_time_tag_ch);
             fprintf(log_file, "Trigger Time Tag ch = %u\n", trigger_time_tag_ch);
     
             /// baseline
@@ -132,7 +132,7 @@ int main(int argc, char**argv)
             fseek(ptr_myfile,offset+24,SEEK_SET);
             fread(&baseline,4,1,ptr_myfile);
     
-            printf("Baseline value = %u\n", baseline);
+            if (VERBOSE) printf("Baseline value = %u\n", baseline);
             fprintf(log_file, "Baseline value = %u\n", baseline);
 
     
@@ -173,7 +173,7 @@ int main(int argc, char**argv)
             } //// end loop on channel samples words
         
         
-            printf("N samples = %u\n", nsamples);
+           if (VERBOSE) printf("N samples = %u\n", nsamples);
             fprintf(log_file, "N samples = %u\n", nsamples);
         
             fprintf(time_file, "%u %u %u %u\n", event_num, nsamples, trigger_time_tag, trigger_time_tag_ch);

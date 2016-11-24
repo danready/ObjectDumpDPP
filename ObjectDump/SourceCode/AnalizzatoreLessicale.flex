@@ -170,7 +170,7 @@ fine di questo file.
 			mioconfig->enable_fast_trigger_digitizing = YesNoAnswer(yytext);
 	}
 
-<SETUP,PRINT>^[mM][aA][xX]_[nN][uU][mM]_[eE][vV][eE][nN][tT][sS]_[bB][lL][tT][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[mM][aA][xX]_[nN][uU][mM]_[eE][vV][eE][nN][tT][sS]_[bB][lL][tT][ \t]+[0-9]{1,10}[ \t]*$ {
 		if (print == YES) 
 		{
 			output_module->OutputFlex(yytext, yyleng+1);
@@ -179,7 +179,7 @@ fine di questo file.
 			mioconfig->max_num_events_BLT=FindIntegerValue(yytext);
 	}
 
-<SETUP,PRINT>^[dD][eE][cC][iI][mM][aA][tT][iI][oO][nN]_[fF][aA][cC][tT][oO][rR][ \t]+[0-9]{1,3}[ \t]*$ {
+<SETUP,PRINT>^[dD][eE][cC][iI][mM][aA][tT][iI][oO][nN]_[fF][aA][cC][tT][oO][rR][ \t]+[0-9]{1,10}[ \t]*$ {
 		if (print == YES) 
 		{
 			output_module->OutputFlex(yytext, yyleng+1);
@@ -188,7 +188,7 @@ fine di questo file.
 			mioconfig->decimation_factor=FindIntegerValue(yytext);
 	}
 
-<SETUP,PRINT>^[pP][oO][sS][tT]_[tT][rR][iI][gG][gG][eE][rR][ \t]+[0-9]{1,3}[ \t]*$ {
+<SETUP,PRINT>^[pP][oO][sS][tT]_[tT][rR][iI][gG][gG][eE][rR][ \t]+[0-9]{1,10}[ \t]*$ {
 		if (print == YES) 
 		{
 			output_module->OutputFlex(yytext, yyleng+1);
@@ -206,7 +206,7 @@ fine di questo file.
 			mioconfig->rising_falling=OutputRisingFalling(yytext); 
 	}
 
-<SETUP,PRINT>^[uU][sS][eE]_[iI][nN][tT][eE][rR][rR][uU][pP][tT][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[uU][sS][eE]_[iI][nN][tT][eE][rR][rR][uU][pP][tT][ \t]+[0-9]{1,10}[ \t]*$ {
 		if (print == YES) 
 		{
 			output_module->OutputFlex(yytext, yyleng+1);
@@ -386,7 +386,7 @@ fine di questo file.
 				WriteRegister(yytext, mioconfig);
         }
 
-<SETUP,PRINT>^[Pp][Rr][Ee]_[Tt][Rr][Ii][Gg][Gg][Ee][Rr][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Pp][Rr][Ee]_[Tt][Rr][Ii][Gg][Gg][Ee][Rr][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -395,7 +395,7 @@ fine di questo file.
 				mioconfig->pre_trigger=FindIntegerValue(yytext);
         }
 
-<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Bb][Aa][Cc][Kk][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Bb][Aa][Cc][Kk][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -404,7 +404,7 @@ fine di questo file.
 				mioconfig->zle_nsamp_back=FindIntegerValue(yytext);
         }
 
-<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Aa][Hh][Ee][Aa][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Nn][Ss][Aa][Mm][Pp]_[Aa][Hh][Ee][Aa][Dd][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -413,7 +413,7 @@ fine di questo file.
 				mioconfig->zle_nsamp_ahead=FindIntegerValue(yytext);
         }
         
-<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Pp][Pp]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Pp][Pp]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -422,7 +422,7 @@ fine di questo file.
 				mioconfig->zle_upp_threshold=FindIntegerValue(yytext);
         }
 
-<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Nn][Dd]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Zz][Ll][Ee]_[Uu][Nn][Dd]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -431,7 +431,7 @@ fine di questo file.
 				mioconfig->zle_und_threshold=FindIntegerValue(yytext);
         }
 
-<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Hh][Rr][Ee][Ss][Hh][Oo][Ll][Dd][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -440,7 +440,7 @@ fine di questo file.
 				mioconfig->bsl_threshold=FindIntegerValue(yytext);
         }
         
-<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Ii][Mm][Ee][Oo][Uu][Tt][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Bb][Ss][Ll]_[Tt][Ii][Mm][Ee][Oo][Uu][Tt][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -449,7 +449,7 @@ fine di questo file.
 				mioconfig->bsl_timeout=FindIntegerValue(yytext);
         }
 
-<SETUP,PRINT>^[Ss][Ee][Ll]_[Nn][Ss][Bb][Ll][ \t]+[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Ss][Ee][Ll]_[Nn][Ss][Bb][Ll][ \t]+[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
@@ -458,23 +458,14 @@ fine di questo file.
 				SelNsblOption(yytext, mioconfig);
         }
         
-<SETUP,PRINT>^[Cc][Hh][ \t]+[0-9]{1,2}[ \t]+[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt][ \t]+[+-]{0,1}[0-9]{1,4}[ \t]*$ {
+<SETUP,PRINT>^[Cc][Hh][ \t]+[0-9]{1,2}[ \t]+[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt][ \t]+[+-]{0,1}[0-9]{1,5}[ \t]*$ {
 			if (print == YES) 
 			{
 				output_module->OutputFlex(yytext, yyleng+1);
 			}
 			if(only_print == NO) 
 				ChInformation(yytext, mioconfig);
-        }
-       
-<SETUP,PRINT>^[Cc][Hh][ \t]+[0-9]{1,2}[ \t]+[Pp][Rr][Ee][Cc]_[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt][ \t]+[+-]{0,1}[0-9]{1,10}[ \t]*$ {
-			if (print == YES) 
-			{
-				output_module->OutputFlex(yytext, yyleng+1);
-			}
-			if(only_print == NO) 
-				ChInformation(yytext, mioconfig);
-        }                
+        }             
         
 <*>\n
 <*>.

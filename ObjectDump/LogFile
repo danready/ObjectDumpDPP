@@ -1,14 +1,2 @@
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectReset Line: 124 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetRecordLength Line: 236 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetMaxNumEventsBLT Line: 246 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetAcquisitionMode Line: 391 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetExtTriggerInputMode Line: 285 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectWriteRegister Line: 305 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetIOLevel Line: 381 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 676 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectSetZLEParameters Line: 679 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSetChannelDCOffset Line: 356 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 221 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:24 2016 File: ./SourceCode/DigitizerObjectGeneric.cpp Function: DigitizerObjectGenericSetTestPattern Line: 224 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:28 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode:-5 Invalid device handler
-Thu Nov 24 09:42:28 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode:-5 Invalid device handler
+Thu Nov 24 12:01:40 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectSWStopAcquisition Line: 453 ErrorCode:-5 Invalid device handler
+Thu Nov 24 12:01:40 2016 File: ./SourceCode/DigitizerObject.cpp Function: DigitizerObjectClose Line: 403 ErrorCode:-5 Invalid device handler
