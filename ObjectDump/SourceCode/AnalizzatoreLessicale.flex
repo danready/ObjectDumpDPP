@@ -458,6 +458,24 @@ fine di questo file.
 				SelNsblOption(yytext, mioconfig);
         }
         
+<SETUP,PRINT>^[Cc][Hh][ \t]+[0-9]{1,2}[ \t]+[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt][ \t]+[+-]{0,1}[0-9]{1,4}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				ChInformation(yytext, mioconfig);
+        }
+       
+<SETUP,PRINT>^[Cc][Hh][ \t]+[0-9]{1,2}[ \t]+[Pp][Rr][Ee][Cc]_[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt][ \t]+[+-]{0,1}[0-9]{1,10}[ \t]*$ {
+			if (print == YES) 
+			{
+				output_module->OutputFlex(yytext, yyleng+1);
+			}
+			if(only_print == NO) 
+				ChInformation(yytext, mioconfig);
+        }                
+        
 <*>\n
 <*>.
 %%

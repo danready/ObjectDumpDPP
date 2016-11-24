@@ -225,6 +225,10 @@ ChInformation (char *yytext, ConfObject * mioconfig)
 		else if (reg_matches
 		(punt, "[cC][hH][aA][nN][nN][eE][lL]_[tT][rR][iI][gG][gG][eE][rR]"))
 			mod = 3;
+		else if (reg_matches (punt, "[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt]"))
+			mod = 4;
+		else if (reg_matches (punt, "[Pp][Rr][Ee][Cc]_[Cc][Aa][Ee][Nn]_[Dd][Cc][Oo][Ff][Ff][Ss][Ee][Tt]"))
+			mod = 5;						
 		else
 			mod = -1;
 
@@ -283,6 +287,18 @@ ChInformation (char *yytext, ConfObject * mioconfig)
 				mioconfig->channels[channel].channel_trigger = channel_trigger;
 			}
 		} // else if (mod == 3)
+		else if (mod == 4)
+		{				//DC_OFFSET
+			punt = FindPointer (punt);
+			int dc_offset = atoi(punt);
+			mioconfig->channels[channel].dc_offset = ((dc_offset + 50)*65535)/100;
+		}
+		else if (mod == 5)
+		{				//DC_OFFSET
+			punt = FindPointer (punt);
+			int dc_offset = atoi(punt);
+			mioconfig->channels[channel].dc_offset = dc_offset + 32768;
+		}
 	} //if (channel < MAXCHANNELOBJECT) 
 }  //END_FUNCTION
 

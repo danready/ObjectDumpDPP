@@ -62,6 +62,7 @@ BSL_THRESHOLD         4
 # Options: 1 to 255.
 BSL_TIMEOUT           100
 
+CH 0 CAEN_DCOFFSET	+45
 
 #POST_TRIGGER value
 #Il parametro POST_TRIGGER indica la dimensione del post-trigger in percentuale della grandezza di
@@ -144,7 +145,7 @@ CHANNEL_ENABLE_MASK 0x1
 #N.B.: DC_OFFSET = ((dc_offsetCAEN+50) * 65535 / 100)
 #DC_OFFSET must be expressed in hexadecimal
 
-CH 0 DC_OFFSET 0xf332
+#CH 0 DC_OFFSET 0xf332
 #CH 1 DC_OFFSET 0xffff
 #CH 2 DC_OFFSET 0xffff
 #CH 3 DC_OFFSET 0xffff
