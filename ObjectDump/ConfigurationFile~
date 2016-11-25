@@ -7,7 +7,7 @@
 #Il parametro open consente di specificare le informazioni necessarie per aprire il digitizer. Se una di
 #queste informazioni non è necessaria (ad esempio il BaseAddress), occorre settarla con il parametro 0.
 #Esempio: 
-OPEN USB 0 0 0
+OPEN PCI 0 0 0
 
 
 #MAX_NUM_EVENTS_BLT maximum_number_of_events
