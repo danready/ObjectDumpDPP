@@ -424,7 +424,7 @@ DigitizerStateMachine::DigitizerStateMachineSetup (const char *conf_file)
 
 
 		//CAEN_DGTZ_SetInterruptConfig( digitizer.handle, CAEN_DGTZ_ENABLE,
-			//		  1,0xAAAA ,1, CAEN_DGTZ_IRQ_MODE_ROAK);
+			//		  1,0xAAAA ,10, CAEN_DGTZ_IRQ_MODE_ROAK);
 					  
 	
 	}

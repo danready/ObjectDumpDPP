@@ -173,6 +173,8 @@ public:
   void RawDataDecode ();
   
   void RawDataDecodeDPP ();
+  
+  void RawDataWriteDecodeEventOnPlotFileDPP (const char *file_arg);  
 
   /**
    * @brief This overloading is necessary in order to perform a deep copy of the object. 

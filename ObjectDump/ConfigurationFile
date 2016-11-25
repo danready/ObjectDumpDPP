@@ -14,13 +14,13 @@ OPEN PCI 0 0 0
 #Il parametro MAX_NUM_EVENTS_BLT imposta il numero di eventi massimo che può essere
 #trasferito in un block transfer.
 #Esempio: 
-MAX_NUM_EVENTS_BLT 10
+MAX_NUM_EVENTS_BLT 200
 
 
 #RECORD_LENGTH number_of_samples
 #Il parametro RECORD_LENGTH indica il numero di campioni da acquisire ad ogni trigger.
 #Esempio: 
-RECORD_LENGTH 1
+RECORD_LENGTH 10000
 
 # PRE_TRIGGER: allows to set the nr. of samples of the pre-trigger (Ns_pre = PRE_TRIGGER * 8).
 # Options: 0 to 1023.
